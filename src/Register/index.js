@@ -3,7 +3,13 @@ import { Form, Label, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 class Register extends Component {
-
+	constructor(){
+	    super();
+	    this.state = {
+	        username: '',
+	        password: ''
+	    }
+	}
   handleSubmit = async (e) => {
   	e.preventDefault();
 
@@ -11,8 +17,8 @@ class Register extends Component {
 	    method: 'POST',
 	    credentials: 'include', // this sends our session cookie with our request
 	    body: JSON.stringify({
-	      username: this.props.username,
-	      password: this.props.password
+	      username: this.state.username,
+	      password: this.state.password
 	    }),
 	    headers: {
 	      'Content-Type': 'application/json'
@@ -23,7 +29,7 @@ console.log(this.props.username)
   const parsedResponse = await registerResponse.json();
   if(parsedResponse.status === 200){
     // change our component
-    console.log('succes login')
+    console.log('success login')
     // this automatically get passed to your component as a prop
     this.props.history.push('/movies');
   }

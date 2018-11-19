@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CreateMovie from '../CreateMovie';
 import MovieList from '../MovieList';
 import EditMovie from '../EditMovie';
-import { Grid } from 'semantic-ui-react';
+import { Grid , Form, Button} from 'semantic-ui-react';
 
 class MovieContainer extends Component {
   constructor(){
@@ -97,9 +97,29 @@ class MovieContainer extends Component {
     //   description: movieFromTheList.description
     // }
   }
+  handleLogout = async (e) => {
+  e.preventDefault()
+
+  const logoutResponse = await fetch('http://localhost:9292/api/users/logout', {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const parsedResponse = await logoutResponse.json()
+
+  if (parsedResponse.status === 200) {
+    console.log(parsedResponse.status, 'successfully logged out')
+    this.props.history.push('/login')
+  }
+}
   render(){
     console.log(this.state)
     return (
+      <div>
+      <Form onSubmit={this.handleLogout}>
+        <Button color="red"type="submit">Logout</Button>
+      </Form>
       <Grid columns={2} divided textAlign='center' style={{ height: '100%' }} verticalAlign='top' stackable>
         <Grid.Row>
           <Grid.Column>
@@ -112,6 +132,7 @@ class MovieContainer extends Component {
           <EditMovie open={this.state.showEditModal} movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/>
         </Grid.Row>
       </Grid>
+      </div>
       )
   }
 }

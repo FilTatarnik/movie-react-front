@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Label, Button } from 'semantic-ui-react';
 import Register from '../Register'
+import { withRouter } from 'react-router-dom';
 import './style.css';
 
 class Login extends Component {
@@ -33,13 +34,14 @@ class Login extends Component {
     });
 
     const parsedResponse = await loginResponse.json();
-// console.log(parsedResponse)
+    console.log(parsedResponse)
     if(parsedResponse.status === 200){
       // change our component
       console.log('succes login')
+      console.log(this.props.history)
       // this automatically get passed to your component as a prop
-      this.props.history.push('/movies');
     }
+      this.props.history.push('/movies');
   }
   render(){
     return (
@@ -62,4 +64,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

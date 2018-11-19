@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Label, Button } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
 class Register extends Component {
 
@@ -48,4 +49,4 @@ handleChange = (e) => {
         )
     }
 }
-export default Register;
+export default withRouter(Register);

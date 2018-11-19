@@ -19,18 +19,21 @@ class Login extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginResponse = await fetch('http://localhost:9000/auth', {
+    const loginResponse = await fetch('http://localhost:9292/api/users', {
       method: 'POST',
       credentials: 'include', // this sends our session cookie with our request
-      body: JSON.stringify(this.state),
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      }),
       headers: {
         'Content-Type': 'application/json'
       }
     });
 
     const parsedResponse = await loginResponse.json();
-
-    if(parsedResponse.data === 'login successful'){
+console.log(parsedResponse)
+    if(parsedResponse.status === 200){
       // change our component
       console.log('succes login')
       // this automatically get passed to your component as a prop

@@ -10,6 +10,7 @@ class MovieContainer extends Component {
 
     this.state = {
       movies: [],
+      movieToAdd: '',
       movieToEdit: {
         title: '',
         description: '',
@@ -19,7 +20,13 @@ class MovieContainer extends Component {
     }
   }
   getMovies = async () => {
-    // Where We will make our fetch call to get all the movies
+    const response = await fetch('http://localhost:9292/api/movies', {
+      credentials: 'include'
+    })
+    const parsed = await response.json();
+    this.setState({
+      movies: parsed.movies
+    })
 
   }
   componentDidMount(){
@@ -28,21 +35,23 @@ class MovieContainer extends Component {
     /// Where you call this.getMovies
   }
   addMovie = async (movie, e) => {
-    // .bind arguments take presidence over every other argument
-    e.preventDefault();
-    console.log(movie);
-
-
-
-
-    } catch(err){
-      console.log('error')
-      console.log(err)
+    const response = await fetch('http://localhost:9292/api/movies', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        movies: this.state.movies
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const parsed = await response.json();
+    if (parsed.status === 200) {
+      this.setState({
+        movieToAdd: ''
+      })
+      this.getMovies();
     }
-    // request address will start with 'http://localhost:9000'
-    // Set up your post request with fetch, Maybe lookup how do i do post request with fetch,
-    // headers: {'Content-Type': 'application/json'}
-    // becuase after we create it, we want to add it to the movies array
   }
   deleteMovie = async (id) => {
 

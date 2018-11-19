@@ -25,15 +25,14 @@ class Register extends Component {
 	    }
 	  });
 
-console.log(this.props.username)
-  const parsedResponse = await registerResponse.json();
-  if(parsedResponse.status === 200){
-    // change our component
-    console.log('success login')
-    // this automatically get passed to your component as a prop
-    this.props.history.push('/movies');
-  }
-}
+	  const parsedResponse = await registerResponse.json();
+	  if(parsedResponse.status === 200){
+	    // change our component
+	    console.log('success login')
+	    // this automatically get passed to your component as a prop
+	    this.props.history.push('/movies');
+	  }
+	}
 handleChange = (e) => {
   this.setState({
     [e.currentTarget.name]: e.currentTarget.value

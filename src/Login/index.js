@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Label, Button } from 'semantic-ui-react';
+import Register from '../Register'
 import './style.css';
 
 class Login extends Component {
@@ -19,7 +20,7 @@ class Login extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginResponse = await fetch('http://localhost:9292/api/users', {
+    const loginResponse = await fetch('http://localhost:9292/api/users/login', {
       method: 'POST',
       credentials: 'include', // this sends our session cookie with our request
       body: JSON.stringify({
@@ -42,7 +43,13 @@ console.log(parsedResponse)
   }
   render(){
     return (
-
+      <div>
+      <Register />
+      <br />
+      <br />
+      <br />
+      <h1>Have an account?</h1>
+      <h2>Login here</h2>
       <Form onSubmit={this.handleSubmit}>
         <Label> Username</Label>
         <Form.Input type='text' name="username" onChange={this.handleChange} />
@@ -50,6 +57,7 @@ console.log(parsedResponse)
         <Form.Input type='password' name="password" onChange={this.handleChange} />
         <Button type="Submit" color="green">Login</Button>
       </Form>
+      </div>
       )
   }
 }

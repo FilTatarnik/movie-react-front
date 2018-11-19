@@ -33,7 +33,7 @@ class Login extends Component {
     });
 
     const parsedResponse = await loginResponse.json();
-console.log(parsedResponse)
+// console.log(parsedResponse)
     if(parsedResponse.status === 200){
       // change our component
       console.log('succes login')
@@ -44,7 +44,7 @@ console.log(parsedResponse)
   render(){
     return (
       <div>
-      <Register />
+      <Register username={this.state.username} password={this.state.password}/>
       <br />
       <br />
       <br />

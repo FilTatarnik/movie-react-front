@@ -46,10 +46,6 @@ class Login extends Component {
   render(){
     return (
       <div>
-      <Register username={this.state.username} password={this.state.password}/>
-      <br />
-      <br />
-      <br />
       <h1>Have an account?</h1>
       <h2>Login here</h2>
       <Form onSubmit={this.handleSubmit}>

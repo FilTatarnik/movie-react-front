@@ -10,7 +10,7 @@ class MovieContainer extends Component {
 
     this.state = {
       movies: [],
-      movieToAdd: '',
+      movieToAdd: [],
       movieToEdit: {
         title: '',
         description: '',
@@ -19,7 +19,7 @@ class MovieContainer extends Component {
       showEditModal: false
     }
   }
-  getMovies = async () => {
+  async getMovies() {
     const response = await fetch('http://localhost:9292/api/movies', {
       credentials: 'include'
     })
@@ -27,10 +27,11 @@ class MovieContainer extends Component {
     this.setState({
       movies: parsed.movies
     })
-
   }
   componentDidMount(){
-  this.getMovies();
+    // get ALl the movies, on the intial load of the APP
+    this.getMovies()
+    /// Where you call this.getMovies
   }
   addMovie = async (movie, e) => {
     try {
@@ -54,8 +55,15 @@ class MovieContainer extends Component {
   }
   deleteMovie = async (id) => {
 
-
-
+    const response = await fetch('http://localhost:9292/api/movies/' + id, 
+    {
+      method: "DELETE",
+      credentials: 'include'
+    })
+    // console.log(response, "<<------ this is the movie id i want to delete");
+    const parsedDeletedItem = await response.json();
+    console.log(parsedDeletedItem, 'This is the deleted parsed item');
+    this.getMovies();
       // Then make the delete request, then remove the movie from the state array using filter
   }
   handleEditChange = (e) => {
@@ -76,9 +84,32 @@ class MovieContainer extends Component {
   }
   closeAndEdit = async (e) => {
     // Put request,
-
+    e.preventDefault();
     // If you feel up to make the modal (EditMovie Component) and show at the appropiate times
+    try {
 
+      const editResponse = await fetch('http://localhost:9292/api/movies/' + this.state.movieToEdit.id, {
+        method: 'PUT',
+        credentials: 'include',
+        body: JSON.stringify({
+          title: this.state.movieToEdit.title,
+          description: this.state.movieToEdit.description
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const parsed = await editResponse.json();
+      if (parsed.status === 200) {
+        this.setState({
+          showEditModal: false,
+          movieToEdit: this.state.movieToEdit
+        })
+        this.getMovies();
+      }
+    } catch (err){
+      console.log(err)
+    }
   }
   openAndEdit = (movieFromTheList) => {
     console.log(movieFromTheList, ' movieToEdit  ');
@@ -126,13 +157,13 @@ class MovieContainer extends Component {
           </Grid.Column>
 
           <Grid.Column>
-            <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie} openAndEdit={this.openAndEdit}/>
+            <MovieList movieToAdd={this.state.movieToAdd}movies={this.state.movies} deleteMovie={this.deleteMovie} openAndEdit={this.openAndEdit}/>
           </Grid.Column>
           <EditMovie open={this.state.showEditModal} movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/>
         </Grid.Row>
       </Grid>
       </div>
-      )
+    )
   }
 }
 

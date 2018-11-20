@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import MovieContainer from './MovieContainer';
+import MovieList from './MovieList';
 import Login from './Login';
 import Register from './Register';
 import Header from './Header';
@@ -16,6 +17,25 @@ const My404 = () => {
 
 
 class App extends Component {
+  constructor(){
+      super();
+      this.state = {
+          loggedIn: false,
+          username: ''
+      }
+  }
+  Login = (username) => {
+    this.setState({
+      loggedIn: true,
+      username: username
+    })
+  }
+  Logout = (username) => {
+    this.setState({
+      loggedIn: false,
+      username: username
+    })
+  }
   render() {
     return (
       <div className="App">

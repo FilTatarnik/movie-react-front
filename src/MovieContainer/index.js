@@ -30,28 +30,27 @@ class MovieContainer extends Component {
 
   }
   componentDidMount(){
-    // get ALl the movies, on the intial load of the APP
-
-    /// Where you call this.getMovies
+  this.getMovies();
   }
   addMovie = async (movie, e) => {
-    const response = await fetch('http://localhost:9292/api/movies', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        movies: this.state.movies
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const parsed = await response.json();
-    if (parsed.status === 200) {
-      this.setState({
-        movieToAdd: ''
-      })
-      this.getMovies();
+    try {
+      e.preventDefault();
+      const createdMovie = await fetch('http://localhost:9292/api/movies', {
+        method: 'POST',
+        body: JSON.stringify(movie),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const parsedResponse = await createdMovie.json();
+      console.log(parsedResponse, ' this is response')
+      this.setState({movies: [...this.state.movies, parsedResponse.movie]})
+
+    } catch(err) {
+      console.log('error')
+      console.log(err)
     }
+    
   }
   deleteMovie = async (id) => {
 

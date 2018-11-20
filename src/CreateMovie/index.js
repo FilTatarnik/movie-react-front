@@ -7,11 +7,14 @@ class CreateMovie extends Component {
 
     this.state = {
       title: '',
-      description: ''
+      description: '',
+      id: ''
     }
   }
-  updateMovie = (e) => {
-    this.setState({[e.currentTarget.name]: e.currentTarget.value})
+  handleChange = (e) => {
+    this.setState({
+      [e.currentTarget.name]: e.currentTarget.value
+    })
   }
   render(){
     return (
@@ -19,9 +22,9 @@ class CreateMovie extends Component {
         <h4>Create Movie</h4>
         <Form onSubmit={this.props.addMovie.bind(null, this.state)}>
           <Label>Movie:</Label>
-          <Form.Input type='text' name='title' value={this.state.title} onChange={this.updateMovie}/>
+          <Form.Input type='text' name='title' value={this.state.title} onChange={this.handleChange}/>
           <Label>description:</Label>
-          <Form.Input type='text' name='description' value={this.state.description} onChange={this.updateMovie}/>
+          <Form.Input type='text' name='description' value={this.state.description} onChange={this.handleChange}/>
           <Button color="green" type='Submit'>Create Movie</Button>
         </Form>
       </Segment>

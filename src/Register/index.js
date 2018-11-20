@@ -44,11 +44,11 @@ handleChange = (e) => {
           <h1>Don't have an account?</h1>
           <h2>Register here</h2>
           <Form onSubmit={this.handleSubmit}>
-	        <Label> Username</Label>
-	        <Form.Input type='text' name="username" onChange={this.handleChange} />
-	        <Label> Password</Label>
-	        <Form.Input type='password' name="password" onChange={this.handleChange} />
-	        <Button type="Submit" color="green">Register</Button>
+						<Label> Username</Label>
+						<Form.Input type='text' name="username" onChange={this.handleChange} />
+						<Label> Password</Label>
+						<Form.Input type='password' name="password" onChange={this.handleChange} />
+						<Button type="Submit" color="green">Register</Button>
 	      </Form>
 	      </div>
         )

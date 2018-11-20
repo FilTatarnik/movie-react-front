@@ -12,7 +12,7 @@ const Movies = (props) => {
         </Card.Content>
         <Card.Content extra>
           <Button color="green" onClick={props.openAndEdit.bind(null, movie)}>Edit Movie</Button>
-          <Button color="red" onClick={props.deleteMovie.bind(null, movie._id)}>Delete Movie</Button>
+          <Button color="red" onClick={props.deleteMovie.bind(null, movie.id)}>Delete Movie</Button>
         </Card.Content>
       </Card>
       )

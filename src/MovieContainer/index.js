@@ -55,8 +55,15 @@ class MovieContainer extends Component {
   }
   deleteMovie = async (id) => {
 
-
-
+    const response = await fetch('http://localhost:9292/api/movies/' + id, 
+    {
+      method: "DELETE",
+      credentials: 'include'
+    })
+    // console.log(response, "<<------ this is the movie id i want to delete");
+    const parsedDeletedItem = await response.json();
+    console.log(parsedDeletedItem, 'This is the deleted parsed item');
+    this.getMovies();
       // Then make the delete request, then remove the movie from the state array using filter
   }
   handleEditChange = (e) => {

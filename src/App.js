@@ -24,13 +24,13 @@ class App extends Component {
           username: ''
       }
   }
-  Login = (username) => {
+  LoggedIn = (username) => {
     this.setState({
       loggedIn: true,
       username: username
     })
   }
-  Logout = (username) => {
+  LoggedOut = (username) => {
     this.setState({
       loggedIn: false,
       username: username

@@ -9,7 +9,8 @@ class LoginRegister extends Component {
 	    this.state = {
 	        username: '',
 	        password: '',
-	        which: "login"
+	        which: "login",
+	        message: ''
 	    }
 	}
 	handleChange = (e) => {
@@ -36,6 +37,10 @@ class LoginRegister extends Component {
 		console.log(parsed, 'here is auth response')
 		if (parsed.status === 200) {
 			this.props.LogIn(parsed.logged_in_as)
+		} else {
+			this.setState({
+				message: parsed.message
+			})
 		}
 	}
 
@@ -56,6 +61,7 @@ class LoginRegister extends Component {
             <Grid container columns={1} textAlign='center' vertical='middle' style={{height: '100%'}}>
         		<Grid.Column style={{maxWidth: 450}}>
         		<Segment>
+        		<h1 className="invalid">{this.state.message}</h1>
             	<h1> {this.state.which === "login" ? "Log in here" : "Register here"} </h1>
             		<Form onSubmit={this.handleSubmit}>
 		            	<input
@@ -76,9 +82,10 @@ class LoginRegister extends Component {
             				{this.state.which === "login" ? "Login" : "Register"}
             			</Button>
             			<br />
+            			<br />
             			<small>
-            				{this.state.which === "login" ? "Need an account? Sign Up" : "Already have an account? Log in here"}
-            				<span className="fake-link" onClick={this.toggle}>here</span>
+            				<h3>{this.state.which === "login" ? "Need an account? Sign Up" : "Already have an account? Log in here"}
+            				<span className="fake-link" onClick={this.toggle}> here</span></h3>
             			</small>
             			</Form>
             		</Segment>

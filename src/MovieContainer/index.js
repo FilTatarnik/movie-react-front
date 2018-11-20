@@ -38,6 +38,7 @@ class MovieContainer extends Component {
       e.preventDefault();
       const createdMovie = await fetch('http://localhost:9292/api/movies', {
         method: 'POST',
+        credentials: 'include',
         body: JSON.stringify(movie),
         headers: {
           'Content-Type': 'application/json'
@@ -88,7 +89,7 @@ class MovieContainer extends Component {
     // If you feel up to make the modal (EditMovie Component) and show at the appropiate times
     try {
 
-      const editResponse = await fetch('http://localhost:9292/api/movies/' + this.state.movieToEdit.id, {
+      const editResponse = await fetch('http://localhost:9292/api/movies/' + this.state.movieToEdit._id, {
         method: 'PUT',
         credentials: 'include',
         body: JSON.stringify({

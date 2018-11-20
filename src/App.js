@@ -6,6 +6,7 @@ import Login from './Login';
 import Register from './Register';
 import Header from './Header';
 import { Route, Switch } from 'react-router-dom';
+import LoginRegister from './LoginRegister'
 
 const My404 = () => {
   return (
@@ -15,22 +16,22 @@ const My404 = () => {
     )
 }
 
-
 class App extends Component {
   constructor(){
-      super();
-      this.state = {
-          loggedIn: false,
-          username: ''
+    super();
+    this.state = {
+        loggedIn: false,
+        username: ''
       }
   }
-  LoggedIn = (username) => {
+
+  LogIn = (username) => {
     this.setState({
       loggedIn: true,
       username: username
     })
   }
-  LoggedOut = (username) => {
+  Logout = (username) => {
     this.setState({
       loggedIn: false,
       username: username
@@ -39,13 +40,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/register" component={Register}/>
-          <Route exact path="/login" component={Login}/>
-          <Route exact path="/movies" component={MovieContainer}/>
-          <Route component={My404}/>
-        </Switch>
+        { this.state.loggedIn ? <MovieContainer Logout={this.Logout}/> : <LoginRegister LogIn={this.LogIn}/> }
       </div>
     );
   }

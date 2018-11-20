@@ -14,7 +14,7 @@ class MovieContainer extends Component {
       movieToEdit: {
         title: '',
         description: '',
-        _id: ''
+        id: ''
       },
       showEditModal: false
     }
@@ -89,7 +89,7 @@ class MovieContainer extends Component {
     // If you feel up to make the modal (EditMovie Component) and show at the appropiate times
     try {
 
-      const editResponse = await fetch('http://localhost:9292/api/movies/' + this.state.movieToEdit._id, {
+      const editResponse = await fetch('http://localhost:9292/api/movies/' + this.state.movieToEdit.id, {
         method: 'PUT',
         credentials: 'include',
         body: JSON.stringify({
@@ -141,7 +141,7 @@ class MovieContainer extends Component {
 
   if (parsedResponse.status === 200) {
     console.log(parsedResponse.status, 'successfully logged out')
-    this.props.history.push('/login')
+    this.props.Logout(parsedResponse)
   }
 }
   render(){

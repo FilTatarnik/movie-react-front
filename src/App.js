@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import MovieContainer from './MovieContainer';
 import MovieList from './MovieList';
-import Login from './Login';
-import Register from './Register';
+// import Login from './Login';
+// import Register from './Register';
 import Header from './Header';
 import { Route, Switch } from 'react-router-dom';
 import LoginRegister from './LoginRegister'

@@ -34,11 +34,25 @@ class MovieContainer extends Component {
     /// Where you call this.getMovies
   }
   addMovie = async (movie, e) => {
+    try {
+      e.preventDefault();
+      const createdMovie = await fetch('http://localhost:9292/api/movies', {
+        method: 'POST',
+        body: JSON.stringify(movie),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const parsedResponse = await createdMovie.json();
+      console.log(parsedResponse, ' this is response')
+      this.setState({movies: [...this.state.movies, parsedResponse.movie]})
 
-
-
-
-}
+    } catch(err) {
+      console.log('error')
+      console.log(err)
+    }
+    
+  }
   deleteMovie = async (id) => {
 
     const response = await fetch('http://localhost:9292/api/movies/' + id, 
